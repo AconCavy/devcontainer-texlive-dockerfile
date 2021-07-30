@@ -1,11 +1,11 @@
-# docker-latex
+# docker-workspace-latex
 
-The docker image for LaTeX on Alpine Linux.
+The docker image for a workspace of LaTeX on Alpine Linux.
 
 ## Language
 
-- English
 - Japanese
+- English
 
 ## LaTeX
 
