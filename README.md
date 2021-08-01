@@ -1,4 +1,4 @@
-# docker-workspace-latex
+# docker-devcontainer-latex
 
 The docker image for a workspace of LaTeX on Alpine Linux.
 
