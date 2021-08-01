@@ -2,10 +2,7 @@ name: Publish Docker image
 
 on:
   push:
-    branches: [ main ]
     tags: [ 'v*.*.*' ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -27,4 +24,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: aconcavy/workspace-latex:latest
+          tags: aconcavy/devcontainer-latex:latest
