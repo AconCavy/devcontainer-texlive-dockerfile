@@ -1,22 +1,18 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:alpine
+FROM mcr.microsoft.com/vscode/devcontainers/base:debian
 
-ENV PATH $PATH:/usr/local/texlive/bin/x86_64-linuxmusl
+ENV PATH=$PATH:/usr/local/texlive/bin/x86_64-linux:/usr/local/texlive/bin/aarch64-linux
 
 COPY texlive.profile /tmp/
 
-RUN apk --no-cache add make fontconfig-dev \
-    perl perl-log-dispatch perl-namespace-autoclean perl-specio perl-unicode-linebreak \
-    && curl -L https://cpanmin.us/ -o /usr/local/bin/cpanm \
-    && chmod +x /usr/local/bin/cpanm \
-    && cpanm -n App::cpanminus \
-    && cpanm -n File::HomeDir \
-    && cpanm -n Params::ValidationCompiler \
-    && cpanm -n YAML::Tiny \
-    && cpanm -n Unicode::GCString
+RUN apt-get update -qq \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
 RUN wget https://texlive.texjp.org/current/tlnet/install-tl-unx.tar.gz \
     && mkdir /tmp/texlive \
-    && tar xvf install-tl-unx.tar.gz -C /tmp/texlive --strip-components=1 \
-    && /tmp/texlive/install-tl --profile=/tmp/texlive.profile \
+    && tar xzf install-tl-unx.tar.gz -C /tmp/texlive --strip-components=1 \
+    && /tmp/texlive/install-tl --no-gui --profile=/tmp/texlive.profile \
+    && tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet \
     && tlmgr update --self --all \
+    && rm -rf install-tl-unx.tar.gz \
     && rm -rf /tmp/texlive
