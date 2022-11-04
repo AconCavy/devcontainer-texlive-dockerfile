@@ -5,6 +5,7 @@ ENV PATH=$PATH:/usr/local/texlive/bin/x86_64-linux:/usr/local/texlive/bin/aarch6
 COPY texlive.profile /tmp/
 
 RUN apt-get update -qq \
+    && apt-get install -y fontconfig \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
